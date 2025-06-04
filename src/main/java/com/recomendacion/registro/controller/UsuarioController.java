@@ -24,19 +24,19 @@ public class UsuarioController { // Controlador para manejar las peticiones rela
     }
 
     // Endpoint protegido que requiere autenticación y autorización
-    // Permite el acceso a usuarios con los roles 'ESTUDIANTE', 'DOCENTE' o 'ADMIN'
-    @GetMapping("/estudiantes/test")
-    @PreAuthorize("hasRole('ESTUDIANTE') or hasRole('DOCENTE') or hasRole('ADMIN')") 
-    public String estudianteAccess() {
-        return "Contenido para estudiantes";
+    // Permite el acceso a usuarios con los roles 'USER', 'COLABORADOR' o 'ADMIN'
+    @GetMapping("/users/test")
+    @PreAuthorize("hasRole('USER') or hasRole('COLABORADOR') or hasRole('ADMIN')") 
+    public String userAccess() { //cambio aplicado aqui anteriormete era estudianteAccess
+        return "Contenido para usuarios";
     }
 
     // Endpoint protegido que requiere autenticación y autorización
     // Permite el acceso a usuarios con los roles 'DOCENTE' o 'ADMIN'
-    @GetMapping("/docentes/test")
-    @PreAuthorize("hasRole('DOCENTE') or hasRole('ADMIN')")
+    @GetMapping("/colaborador/test")
+    @PreAuthorize("hasRole('COLABORADOR') or hasRole('ADMIN')")
     public String docenteAccess() {
-        return "Contenido para docentes";
+        return "Contenido para colaboradores";
     }
 
     // Endpoint protegido que requiere autenticación y autorización

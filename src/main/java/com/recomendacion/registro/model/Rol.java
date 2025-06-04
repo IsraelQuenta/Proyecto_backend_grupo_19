@@ -22,8 +22,14 @@ public class Rol {
     private NombreRol nombre;
     
     public enum NombreRol { // Enum para definir los nombres de los roles
-        ROL_ESTUDIANTE,
-        ROL_DOCENTE,
+        ROL_USER,
+        ROL_COLABORADOR, 
         ROL_ADMIN
     }
+    //Cambios efectuados 
+    /*Se conservaran los 3 roles tradicionales para el login 
+     * USER = USUARIO CORRIENTE QUE SOLO EXISTE PARA CONSUMIR LAS FUNCIONALIDADES DEL SISTEMA
+     * COLABORADOR = ELLOS ESTAN DESTINADOS A CALIBRAR EL ALGORITMO DANDOLE ACCESO SOLAMENTE AL CRUD PARA PELICULAS Y LIBROS
+     * ADMIN = /GAMEMODE 1
+     */
 }

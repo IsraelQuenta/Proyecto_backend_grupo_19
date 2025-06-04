@@ -19,7 +19,7 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
     Rating findByUsuarioIdAndProductoId(Long usuarioId, Long productoId);
 
     // Calcula el promedio de ratings para un producto
-    @Query("SELECT AVG(r.puntuacion) FROM Rating r WHERE r.producto.id = :productoId")
+    @Query("SELECT AVG(r.valoracion) FROM Rating r WHERE r.producto.id = :productoId")
     Double calcularPromedioRatingPorProducto(Long productoId);
 
     // Verifica si un usuario ya ha valorado un producto

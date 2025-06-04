@@ -30,6 +30,11 @@ public class GeneroServiceImpl implements GeneroService {
     @Override
     @Transactional
     public GeneroDTO crear(GeneroDTO generoDTO) {
+        // Verificar si ya existe un género con la misma descripción
+        if (generoRepository.existsByDescripcion(generoDTO.getDescripcion())) {
+            throw new RuntimeException("Ya existe un género con esta descripción");
+        }
+
         Genero genero = convertToEntity(generoDTO);
         Genero generoGuardado = generoRepository.save(genero);
         return convertToDTO(generoGuardado);

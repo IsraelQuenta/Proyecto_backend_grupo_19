@@ -7,7 +7,9 @@ import com.recomendacion.service.RatingService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,10 +49,18 @@ public class RatingServiceImpl implements RatingService {
     @Transactional
     public RatingDTO crear(RatingDTO ratingDTO) {
         Rating rating = convertToEntity(ratingDTO);
+        rating.setFecha(LocalDateTime.now()); // Establecer la fecha actual
         Rating ratingGuardado = ratingRepository.save(rating);
         return convertToDTO(ratingGuardado);
     }
 
+    //
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<RatingDTO> obtenerPorId(Long id) {
+        return ratingRepository.findById(id)
+                .map(this::convertToDTO);
+    }
     @Override
     @Transactional
     public RatingDTO actualizar(Long id, RatingDTO ratingDTO) {
@@ -59,7 +69,8 @@ public class RatingServiceImpl implements RatingService {
 
         ratingExistente.setValoracion(ratingDTO.getValoracion());
         ratingExistente.setComentario(ratingDTO.getComentario());
-        // Actualizar otros campos según sea necesario
+        // No actualizamos la fecha aquí para mantener la fecha original
+        // No actualizamos usuario ni producto ya que son relaciones fijas
 
         Rating ratingActualizado = ratingRepository.save(ratingExistente);
         return convertToDTO(ratingActualizado);
@@ -69,6 +80,18 @@ public class RatingServiceImpl implements RatingService {
     @Transactional
     public void eliminar(Long id) {
         ratingRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Double obtenerPromedioPorProducto(Long productoId) {
+        return ratingRepository.calcularPromedioRatingPorProducto(productoId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existeRatingDeUsuarioParaProducto(Long usuarioId, Long productoId) {
+        return ratingRepository.existsByUsuarioIdAndProductoId(usuarioId, productoId);
     }
 
     private RatingDTO convertToDTO(Rating rating) {
@@ -88,7 +111,8 @@ public class RatingServiceImpl implements RatingService {
                 .valoracion(ratingDTO.getValoracion())
                 .comentario(ratingDTO.getComentario())
                 .fecha(ratingDTO.getFecha())
-                // Usuario y Producto se deben establecer desde el controlador
+                // Nota: Usuario y Producto deben establecerse desde el controlador
+                // usando sus respectivos servicios/repositorios
                 .build();
     }
 }

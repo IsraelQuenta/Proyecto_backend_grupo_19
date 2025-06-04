@@ -28,8 +28,8 @@ public class Rating {
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
-    @Column(nullable = false)
-    private Double valoracion; // Ej: 4.5 estrellas
+    @Column // Para 1 decimal
+    private Double valoracion;// Ej: 4.5 estrellas
 
     @Column(length = 500)
     private String comentario;

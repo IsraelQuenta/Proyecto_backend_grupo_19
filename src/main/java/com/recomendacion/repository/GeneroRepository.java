@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GeneroRepository extends JpaRepository<Genero, Long> {
-    // Verifica si existe un género con el mismo nombre
-    boolean existsByNombre(String nombre);
+    // Verifica si existe un género con la misma descripción
+    boolean existsByDescripcion(String descripcion);
 
-    // Encuentra un género por su nombre
-    Genero findByNombre(String nombre);
+    // Encuentra un género por su descripción
+    Genero findByDescripcion(String descripcion);
 }

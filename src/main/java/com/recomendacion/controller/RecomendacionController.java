@@ -4,6 +4,8 @@ import com.recomendacion.dto.RecomendacionDTO;
 import com.recomendacion.service.RecomendacionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,5 +34,14 @@ public class RecomendacionController {
     public ResponseEntity<List<RecomendacionDTO>> obtenerHistorial(
             @PathVariable Long usuarioId) {
         return ResponseEntity.ok(recomendacionService.obtenerPorUsuario(usuarioId));
+    }
+
+    //
+    @Operation(summary = "Crear recomendación manualmente")
+    @PostMapping
+    public ResponseEntity<RecomendacionDTO> crearRecomendacion(
+            @Valid @RequestBody RecomendacionDTO recomendacionDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(recomendacionService.crear(recomendacionDTO));
     }
 }

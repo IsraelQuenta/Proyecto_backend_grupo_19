@@ -8,6 +8,7 @@ import com.recomendacion.registro.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Component;
 
 
@@ -42,20 +43,20 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     // Método para inicializar los roles en la base de datos
-    // Si no existen, se crean los roles: ROL_ADMIN, ROL_DOCENTE y ROL_ESTUDIANTE
+    // Si no existen, se crean los roles: ROL_ADMIN, ROL_COLABORADOR y ROL_USER
     private void inicializarRoles() {
         if (rolRepository.count() == 0) {
             Rol rolAdmin = new Rol();
             rolAdmin.setNombre(Rol.NombreRol.ROL_ADMIN);
             rolRepository.save(rolAdmin);
             
-            Rol rolDocente = new Rol();
-            rolDocente.setNombre(Rol.NombreRol.ROL_DOCENTE);
-            rolRepository.save(rolDocente);
+            Rol rolColaborador = new Rol();
+            rolColaborador.setNombre(Rol.NombreRol.ROL_COLABORADOR);
+            rolRepository.save(rolColaborador);
             
-            Rol rolEstudiante = new Rol();
-            rolEstudiante.setNombre(Rol.NombreRol.ROL_ESTUDIANTE);
-            rolRepository.save(rolEstudiante);
+            Rol rolUser = new Rol();
+            rolUser.setNombre(Rol.NombreRol.ROL_USER);
+            rolRepository.save(rolUser);
             
             System.out.println("Roles inicializados en la base de datos");
         }
@@ -68,7 +69,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             Usuario admin = new Usuario();
             admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setEmail("admin@recomendacion.com");
+            admin.setEmail("admin@recocom.recomendacion.com");
             admin.setNombre("Administrador");
             admin.setApellido("Sistema");
             admin.setActivo(true);

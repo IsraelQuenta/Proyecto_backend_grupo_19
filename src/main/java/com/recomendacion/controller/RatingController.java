@@ -61,4 +61,16 @@ public class RatingController {
         ratingService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/promedio/producto/{productoId}")
+    public ResponseEntity<Double> obtenerPromedio(@PathVariable Long productoId) {
+        return ResponseEntity.ok(ratingService.obtenerPromedioPorProducto(productoId));
+    }
+    @Operation(summary = "Obtener rating por ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<RatingDTO> obtenerPorId(@PathVariable Long id) {
+        return ratingService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
