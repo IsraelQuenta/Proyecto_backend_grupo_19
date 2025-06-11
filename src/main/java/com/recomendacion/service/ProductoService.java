@@ -13,4 +13,9 @@ public interface ProductoService {
     LibroDTO actualizarLibro(Long id, LibroDTO libroDTO);
     PeliculaDTO actualizarPelicula(Long id, PeliculaDTO peliculaDTO);
     void eliminar(Long id);
+<<<<<<< HEAD
+=======
+    List<LibroDTO> obtenerTodosLibros();
+    List<PeliculaDTO> obtenerTodasPeliculas();
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 }

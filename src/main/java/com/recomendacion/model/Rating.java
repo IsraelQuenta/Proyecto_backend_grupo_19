@@ -1,7 +1,15 @@
 package com.recomendacion.model;
 
 import jakarta.persistence.*;
+<<<<<<< HEAD
 import lombok.*;
+=======
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import lombok.*;
+
+import java.math.BigDecimal;
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,8 +36,18 @@ public class Rating {
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
+<<<<<<< HEAD
     @Column // Para 1 decimal
     private Double valoracion;// Ej: 4.5 estrellas
+=======
+    @Column(nullable = false, precision = 1, scale = 0) // Solo un dígito entero
+    @Min(1)
+    @Max(5)
+    private BigDecimal valoracion; // Ej: 1, 2, ..., 5
+//    @Column(nullable = false, precision = 2, scale = 1) // Para 1 decimal
+//    private BigDecimal valoracion;// Ej: 4.5 estrellas
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 
     @Column(length = 500)
     private String comentario;

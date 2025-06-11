@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
 
+=======
+import jakarta.validation.constraints.NotBlank;
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

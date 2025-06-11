@@ -125,7 +125,14 @@
 					</excludes>
 				</configuration>
 			</plugin>
+<<<<<<< HEAD
 		</plugins>
+=======
+
+		</plugins>
+
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 	</build>
 
 </project>

@@ -15,7 +15,11 @@ public class GeneroServiceImpl implements GeneroService {
 
     private final GeneroRepository generoRepository;
 
+<<<<<<< HEAD
     public GeneroServiceImpl(GeneroRepository generoRepository) {
+=======
+    public GeneroServiceImpl(GeneroRepository generoRepository) {  // Antes decía GeneroRepository
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         this.generoRepository = generoRepository;
     }
 
@@ -28,13 +32,27 @@ public class GeneroServiceImpl implements GeneroService {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    @Transactional(readOnly = true)
+    public GeneroDTO obtenerPorId(Long id) {
+        Genero genero = generoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Género no encontrado con id: " + id));
+        return convertToDTO(genero);
+    }
+
+    @Override
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
     @Transactional
     public GeneroDTO crear(GeneroDTO generoDTO) {
         // Verificar si ya existe un género con la misma descripción
         if (generoRepository.existsByDescripcion(generoDTO.getDescripcion())) {
             throw new RuntimeException("Ya existe un género con esta descripción");
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         Genero genero = convertToEntity(generoDTO);
         Genero generoGuardado = generoRepository.save(genero);
         return convertToDTO(generoGuardado);
@@ -42,8 +60,33 @@ public class GeneroServiceImpl implements GeneroService {
 
     @Override
     @Transactional
+<<<<<<< HEAD
     public void eliminar(Long id) {
         generoRepository.deleteById(id);
+=======
+    public GeneroDTO actualizar(Long id, GeneroDTO generoDTO) {
+        Genero generoExistente = generoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Género no encontrado con id: " + id));
+
+        // Verificar si la nueva descripción ya existe en otro género
+        if (!generoExistente.getDescripcion().equals(generoDTO.getDescripcion())) {  // Aquí faltaba el paréntesis de cierre
+            if (generoRepository.existsByDescripcion(generoDTO.getDescripcion())) {
+                throw new RuntimeException("Ya existe un género con esta descripción");
+            }
+        }
+
+        generoExistente.setDescripcion(generoDTO.getDescripcion());
+        Genero generoActualizado = generoRepository.save(generoExistente);
+        return convertToDTO(generoActualizado);
+    }
+
+    @Override
+    @Transactional
+    public void eliminar(Long id) {
+        Genero genero = generoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Género no encontrado con id: " + id));
+        generoRepository.delete(genero);
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
     }
 
     private GeneroDTO convertToDTO(Genero genero) {

@@ -50,10 +50,17 @@ public class ProductoValidator {
 
         // Validar campos requeridos
         errores.addAll(validarCamposRequeridos(dto));
+<<<<<<< HEAD
         
         // Validar formato y rangos
         errores.addAll(validarFormatos(dto));
         
+=======
+
+        // Validar formato y rangos
+        errores.addAll(validarFormatos(dto));
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Validar contenido específico
         errores.addAll(validarContenido(dto));
 
@@ -73,7 +80,11 @@ public class ProductoValidator {
         if (dto.getSinopsis() == null || dto.getSinopsis().trim().isEmpty()) {
             errores.add("La sinopsis es obligatoria");
         }
+<<<<<<< HEAD
 /* 
+=======
+/*
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         if (dto.getUrlImagen() == null || dto.getUrlImagen().trim().isEmpty()) {
             errores.add("La URL de la imagen es obligatoria");
         }
@@ -104,7 +115,11 @@ public class ProductoValidator {
             if (titulo.length() > TITULO_MAX) {
                 errores.add("El título debe tener entre " + TITULO_MIN + " y " + TITULO_MAX + " caracteres");
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
             // Validar caracteres permitidos en título
             if (!titulo.isEmpty() && !PATTERN_TITULO.matcher(titulo).matches()) {
                 errores.add("El título contiene caracteres no válidos");
@@ -207,7 +222,11 @@ public class ProductoValidator {
         // Validar que los IDs de géneros sean positivos
         boolean tieneIdsInvalidos = generosIds.stream()
             .anyMatch(id -> id == null || id <= 0);
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         if (tieneIdsInvalidos) {
             errores.add("Los IDs de géneros deben ser números positivos");
         }
@@ -227,7 +246,11 @@ public class ProductoValidator {
         if (url == null || url.trim().isEmpty()) {
             return false;
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         try {
             new URL(url);
             return PATTERN_URL.matcher(url).matches();
@@ -243,12 +266,21 @@ public class ProductoValidator {
         if (url == null) {
             return false;
         }
+<<<<<<< HEAD
         
         String urlLower = url.toLowerCase();
         return urlLower.endsWith(".jpg") || 
                urlLower.endsWith(".jpeg") || 
                urlLower.endsWith(".png") || 
                urlLower.endsWith(".gif") || 
+=======
+
+        String urlLower = url.toLowerCase();
+        return urlLower.endsWith(".jpg") ||
+               urlLower.endsWith(".jpeg") ||
+               urlLower.endsWith(".png") ||
+               urlLower.endsWith(".gif") ||
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
                urlLower.endsWith(".webp") ||
                urlLower.endsWith(".svg") ||
                urlLower.contains("image") ||
@@ -260,11 +292,19 @@ public class ProductoValidator {
      */
     public List<String> validarParaCreacion(ProductoDTO dto) {
         List<String> errores = validar(dto);
+<<<<<<< HEAD
         
         if (dto != null && dto.getId() != null) {
             errores.add("El ID debe ser nulo para crear un nuevo producto");
         }
         
+=======
+
+        if (dto != null && dto.getId() != null) {
+            errores.add("El ID debe ser nulo para crear un nuevo producto");
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -273,11 +313,19 @@ public class ProductoValidator {
      */
     public List<String> validarParaActualizacion(ProductoDTO dto) {
         List<String> errores = validar(dto);
+<<<<<<< HEAD
         
         if (dto != null && (dto.getId() == null || dto.getId() <= 0)) {
             errores.add("El ID es requerido y debe ser mayor a 0 para actualizar");
         }
         
+=======
+
+        if (dto != null && (dto.getId() == null || dto.getId() <= 0)) {
+            errores.add("El ID es requerido y debe ser mayor a 0 para actualizar");
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -286,11 +334,19 @@ public class ProductoValidator {
      */
     public List<String> validarDuplicado(ProductoDTO dto, boolean existeProductoSimilar) {
         List<String> errores = new ArrayList<>();
+<<<<<<< HEAD
         
         if (existeProductoSimilar) {
             errores.add("Ya existe un producto con el mismo título en este país");
         }
         
+=======
+
+        if (existeProductoSimilar) {
+            errores.add("Ya existe un producto con el mismo título en este país");
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -299,6 +355,7 @@ public class ProductoValidator {
      */
     public List<String> validarDisponibilidad(ProductoDTO dto) {
         List<String> errores = new ArrayList<>();
+<<<<<<< HEAD
         
         if (dto == null || dto.getEstado() == null) {
             return errores;
@@ -306,6 +363,15 @@ public class ProductoValidator {
         
         String estado = dto.getEstado().trim();
         
+=======
+
+        if (dto == null || dto.getEstado() == null) {
+            return errores;
+        }
+
+        String estado = dto.getEstado().trim();
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Validaciones específicas según el estado
         switch (estado) {
             case "En estreno":
@@ -322,7 +388,11 @@ public class ProductoValidator {
                 }
                 break;
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -331,20 +401,36 @@ public class ProductoValidator {
      */
     public List<String> validarGenerosExistentes(ProductoDTO dto, Set<Long> generosExistentes) {
         List<String> errores = new ArrayList<>();
+<<<<<<< HEAD
         
         if (dto == null || dto.getGenerosIds() == null || generosExistentes == null) {
             return errores;
         }
         
+=======
+
+        if (dto == null || dto.getGenerosIds() == null || generosExistentes == null) {
+            return errores;
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Verificar que todos los géneros especificados existan
         Set<Long> generosInvalidos = dto.getGenerosIds().stream()
             .filter(id -> !generosExistentes.contains(id))
             .collect(java.util.stream.Collectors.toSet());
+<<<<<<< HEAD
             
         if (!generosInvalidos.isEmpty()) {
             errores.add("Los siguientes IDs de géneros no existen: " + generosInvalidos);
         }
         
+=======
+
+        if (!generosInvalidos.isEmpty()) {
+            errores.add("Los siguientes IDs de géneros no existen: " + generosInvalidos);
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -364,24 +450,40 @@ public class ProductoValidator {
             if (dto.getTitulo() != null) {
                 dto.setTitulo(dto.getTitulo().trim());
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
             // Normalizar sinopsis
             if (dto.getSinopsis() != null) {
                 dto.setSinopsis(dto.getSinopsis().trim());
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
             // Normalizar URL de imagen
             if (dto.getUrlImagen() != null) {
                 dto.setUrlImagen(dto.getUrlImagen().trim());
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
             // Normalizar país (capitalizar primera letra de cada palabra)
             if (dto.getPais() != null) {
                 String pais = dto.getPais().trim();
                 if (!pais.isEmpty()) {
                     String[] palabras = pais.split("\\s+");
                     StringBuilder paisNormalizado = new StringBuilder();
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
                     for (int i = 0; i < palabras.length; i++) {
                         if (i > 0) paisNormalizado.append(" ");
                         String palabra = palabras[i];
@@ -393,7 +495,11 @@ public class ProductoValidator {
                     dto.setPais(paisNormalizado.toString());
                 }
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
             // El estado ya debe venir en el formato correcto según el patrón
             if (dto.getEstado() != null) {
                 dto.setEstado(dto.getEstado().trim());
@@ -406,31 +512,55 @@ public class ProductoValidator {
      */
     public List<String> obtenerSugerencias(ProductoDTO dto) {
         List<String> sugerencias = new ArrayList<>();
+<<<<<<< HEAD
         
         if (dto == null) {
             return sugerencias;
         }
         
+=======
+
+        if (dto == null) {
+            return sugerencias;
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Sugerir mejoras en la sinopsis
         if (dto.getSinopsis() != null && dto.getSinopsis().trim().length() < 50) {
             sugerencias.add("Considera expandir la sinopsis para dar más información sobre el producto");
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Sugerir más géneros si tiene pocos
         if (dto.getGenerosIds() != null && dto.getGenerosIds().size() < 2) {
             sugerencias.add("Considera agregar más géneros para mejorar las recomendaciones");
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Sugerir verificar URL de imagen
         if (dto.getUrlImagen() != null && !dto.getUrlImagen().startsWith("https://")) {
             sugerencias.add("Considera usar una URL HTTPS para la imagen por seguridad");
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         // Sugerir estado más específico
         if ("Disponible".equals(dto.getEstado())) {
             sugerencias.add("Si el producto es nuevo, considera usar 'En estreno' para destacarlo");
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return sugerencias;
     }
 }

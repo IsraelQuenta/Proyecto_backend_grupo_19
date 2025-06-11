@@ -22,6 +22,21 @@ public class RecomendacionController {
         this.recomendacionService = recomendacionService;
     }
 
+<<<<<<< HEAD
+=======
+    @Operation(summary = "Obtener todas las recomendaciones")
+    @GetMapping
+    public ResponseEntity<List<RecomendacionDTO>> obtenerTodas() {
+        return ResponseEntity.ok(recomendacionService.obtenerTodas());
+    }
+
+    @Operation(summary = "Obtener recomendación por ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<RecomendacionDTO> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(recomendacionService.obtenerPorId(id));
+    }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
     @Operation(summary = "Generar recomendaciones para usuario")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<RecomendacionDTO>> generarRecomendaciones(
@@ -36,7 +51,10 @@ public class RecomendacionController {
         return ResponseEntity.ok(recomendacionService.obtenerPorUsuario(usuarioId));
     }
 
+<<<<<<< HEAD
     //
+=======
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
     @Operation(summary = "Crear recomendación manualmente")
     @PostMapping
     public ResponseEntity<RecomendacionDTO> crearRecomendacion(
@@ -44,4 +62,22 @@ public class RecomendacionController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(recomendacionService.crear(recomendacionDTO));
     }
+<<<<<<< HEAD
+=======
+
+    @Operation(summary = "Actualizar recomendación")
+    @PutMapping("/{id}")
+    public ResponseEntity<RecomendacionDTO> actualizarRecomendacion(
+            @PathVariable Long id,
+            @Valid @RequestBody RecomendacionDTO recomendacionDTO) {
+        return ResponseEntity.ok(recomendacionService.actualizar(id, recomendacionDTO));
+    }
+
+    @Operation(summary = "Eliminar recomendación")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarRecomendacion(@PathVariable Long id) {
+        recomendacionService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
 }

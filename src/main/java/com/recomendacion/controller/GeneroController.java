@@ -28,6 +28,7 @@ public class GeneroController {
         return ResponseEntity.ok(generoService.obtenerTodos());
     }
 
+<<<<<<< HEAD
     @Operation(summary = "Crear género")
     @PostMapping
     public ResponseEntity<GeneroDTO> crear(@Valid @RequestBody GeneroDTO generoDTO) {
@@ -36,6 +37,31 @@ public class GeneroController {
     }
 
     @Operation(summary = "Eliminar género")
+=======
+    @Operation(summary = "Obtener un género por ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<GeneroDTO> obtenerPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(generoService.obtenerPorId(id));
+    }
+
+    @Operation(summary = "Crear un nuevo género")
+    @PostMapping
+    public ResponseEntity<GeneroDTO> crear(@Valid @RequestBody GeneroDTO generoDTO) {
+        GeneroDTO generoCreado = generoService.crear(generoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(generoCreado);
+    }
+
+    @Operation(summary = "Actualizar un género existente")
+    @PutMapping("/{id}")
+    public ResponseEntity<GeneroDTO> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody GeneroDTO generoDTO) {
+        GeneroDTO generoActualizado = generoService.actualizar(id, generoDTO);
+        return ResponseEntity.ok(generoActualizado);
+    }
+
+    @Operation(summary = "Eliminar un género")
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         generoService.eliminar(id);

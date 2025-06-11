@@ -106,6 +106,7 @@ public class RecomendacionValidator {
      */
     public List<String> validarParaCreacion(RecomendacionDTO dto) {
         List<String> errores = validar(dto);
+<<<<<<< HEAD
         
         if (dto != null && dto.getId() != null) {
             errores.add("El ID debe ser nulo para crear una nueva recomendación");
@@ -116,6 +117,13 @@ public class RecomendacionValidator {
             dto.setFecha(LocalDateTime.now());
         }
         
+=======
+
+        if (dto != null && dto.getId() != null) {
+            errores.add("El ID debe ser nulo para crear una nueva recomendación");
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
@@ -124,11 +132,19 @@ public class RecomendacionValidator {
      */
     public List<String> validarParaActualizacion(RecomendacionDTO dto) {
         List<String> errores = validar(dto);
+<<<<<<< HEAD
         
         if (dto != null && (dto.getId() == null || dto.getId() <= 0)) {
             errores.add("El ID es requerido y debe ser mayor a 0 para actualizar");
         }
         
+=======
+
+        if (dto != null && (dto.getId() == null || dto.getId() <= 0)) {
+            errores.add("El ID es requerido y debe ser mayor a 0 para actualizar");
+        }
+
+>>>>>>> 9e299a9 (Proyecto antes de insertar la seguridad en los endpoints)
         return errores;
     }
 
