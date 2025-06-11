@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+//importacion para el PreAuthorize
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +29,8 @@ public class ProductoController {
 
     private final ProductoService productoService;
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todos los productos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de productos obtenida exitosamente"),
@@ -37,6 +41,8 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerTodos());
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener producto por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Producto encontrado"),
@@ -48,6 +54,8 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerPorId(id));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Crear libro")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Libro creado exitosamente"),
@@ -67,6 +75,8 @@ public class ProductoController {
         }
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Crear película")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Película creada exitosamente"),
@@ -85,6 +95,9 @@ public class ProductoController {
         }
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Actualizar libro")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Libro actualizado exitosamente"),
@@ -104,6 +117,8 @@ public class ProductoController {
         }
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Actualizar película")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Película actualizada exitosamente"),
@@ -123,6 +138,8 @@ public class ProductoController {
         }
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Eliminar producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Producto eliminado exitosamente"),
@@ -135,6 +152,8 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todos los libros")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de libros obtenida exitosamente"),
@@ -145,6 +164,8 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.obtenerTodosLibros());
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todas las películas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de películas obtenida exitosamente"),

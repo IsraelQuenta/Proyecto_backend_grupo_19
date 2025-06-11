@@ -12,7 +12,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+//importacion para el PreAuthorize
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,6 +34,8 @@ public class RatingController {
         this.ratingValidator = ratingValidator;
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todos los ratings")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de ratings obtenida exitosamente"),
@@ -40,6 +46,9 @@ public class RatingController {
         return ResponseEntity.ok(ratingService.obtenerTodos());
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener rating por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Rating encontrado"),
@@ -53,6 +62,8 @@ public class RatingController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener ratings por usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de ratings obtenida exitosamente"),
@@ -63,6 +74,9 @@ public class RatingController {
         return ResponseEntity.ok(ratingService.obtenerPorUsuario(usuarioId));
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener ratings por producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de ratings obtenida exitosamente"),
@@ -73,6 +87,9 @@ public class RatingController {
         return ResponseEntity.ok(ratingService.obtenerPorProducto(productoId));
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Crear rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Rating creado exitosamente"),
@@ -104,6 +121,9 @@ public class RatingController {
                 .body(ratingService.crear(ratingDTO));
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Actualizar rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Rating actualizado exitosamente"),
@@ -127,6 +147,9 @@ public class RatingController {
         return ResponseEntity.ok(ratingService.actualizar(id, ratingDTO));
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Eliminar rating")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Rating eliminado exitosamente"),
@@ -139,6 +162,9 @@ public class RatingController {
         return ResponseEntity.noContent().build();
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener promedio de ratings por producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Promedio calculado exitosamente"),
@@ -150,6 +176,8 @@ public class RatingController {
         return ResponseEntity.ok(promedio);
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Verificar si usuario ha valorado un producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Verificación exitosa"),

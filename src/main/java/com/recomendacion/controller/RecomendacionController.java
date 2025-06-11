@@ -7,7 +7,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+//importacion para el PreAuthorize
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -22,18 +26,25 @@ public class RecomendacionController {
         this.recomendacionService = recomendacionService;
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todas las recomendaciones")
     @GetMapping
     public ResponseEntity<List<RecomendacionDTO>> obtenerTodas() {
         return ResponseEntity.ok(recomendacionService.obtenerTodas());
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener recomendación por ID")
     @GetMapping("/{id}")
     public ResponseEntity<RecomendacionDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(recomendacionService.obtenerPorId(id));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Generar recomendaciones para usuario")
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<List<RecomendacionDTO>> generarRecomendaciones(
@@ -41,6 +52,8 @@ public class RecomendacionController {
         return ResponseEntity.ok(recomendacionService.generarRecomendaciones(usuarioId));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener historial de recomendaciones")
     @GetMapping("/historial/{usuarioId}")
     public ResponseEntity<List<RecomendacionDTO>> obtenerHistorial(
@@ -48,6 +61,8 @@ public class RecomendacionController {
         return ResponseEntity.ok(recomendacionService.obtenerPorUsuario(usuarioId));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Crear recomendación manualmente")
     @PostMapping
     public ResponseEntity<RecomendacionDTO> crearRecomendacion(
@@ -56,6 +71,8 @@ public class RecomendacionController {
                 .body(recomendacionService.crear(recomendacionDTO));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Actualizar recomendación")
     @PutMapping("/{id}")
     public ResponseEntity<RecomendacionDTO> actualizarRecomendacion(
@@ -64,6 +81,8 @@ public class RecomendacionController {
         return ResponseEntity.ok(recomendacionService.actualizar(id, recomendacionDTO));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('COLABORADOR', 'ADMIN')")
     @Operation(summary = "Eliminar recomendación")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarRecomendacion(@PathVariable Long id) {

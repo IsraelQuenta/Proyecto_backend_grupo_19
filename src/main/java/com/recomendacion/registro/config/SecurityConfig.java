@@ -3,6 +3,7 @@ package com.recomendacion.registro.config;
 import com.recomendacion.registro.security.JwtAuthenticationEntryPoint;
 import com.recomendacion.registro.security.JwtAuthenticationFilter;
 
+
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true) // secureEnabled=true
 @EnableJdbcHttpSession
 /** 
  * Esta clase configura la seguridad de la aplicación utilizando Spring Security.
@@ -99,6 +100,12 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/colaborador/**").hasAnyRole("ADMIN", "COLABORADOR")
                 .requestMatchers("/api/users/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
+                //proteccion global de todos los endpoints
+                .requestMatchers("/api/usuario-producto/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
+                .requestMatchers("/api/recomendaciones/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
+                .requestMatchers("/api/ratings/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
+                .requestMatchers("/api/productos/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
+                .requestMatchers("/api/generos/**").hasAnyRole("ADMIN", "COLABORADOR", "USER")
                 .anyRequest().authenticated()
             );
 

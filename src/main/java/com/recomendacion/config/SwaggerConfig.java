@@ -31,11 +31,11 @@ import org.springframework.http.HttpHeaders;
         servers = {
                 @Server(
                         description = "DEV SERVER",
-                        url = "http://localhost:8080"
+                        url = "http://localhost:9091"
                 ),
                 @Server(
                         description = "PROD SERVER",
-                        url = "http://zarate:8080"
+                        url = "http://zarate:9091"
                 )
         },
         security = @SecurityRequirement(

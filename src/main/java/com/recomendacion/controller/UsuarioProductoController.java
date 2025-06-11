@@ -14,6 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//importacion para el PreAuthorize
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import java.util.List;
 
 @RestController
@@ -30,6 +33,8 @@ public class UsuarioProductoController {
         this.validator = validator;
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener todas las interacciones")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de interacciones obtenida exitosamente"),
@@ -40,6 +45,9 @@ public class UsuarioProductoController {
         return ResponseEntity.ok(usuarioProductoService.obtenerTodos());
     }
 
+    
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener interacción por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Interacción encontrada"),
@@ -51,6 +59,9 @@ public class UsuarioProductoController {
         return ResponseEntity.ok(usuarioProductoService.obtenerPorId(id));
     }
 
+
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Crear interacción")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Interacción creada exitosamente"),
@@ -69,6 +80,8 @@ public class UsuarioProductoController {
                 .body(usuarioProductoService.crear(usuarioProductoDTO));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Actualizar interacción")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Interacción actualizada exitosamente"),
@@ -89,18 +102,24 @@ public class UsuarioProductoController {
         return ResponseEntity.ok(usuarioProductoService.actualizar(usuarioProductoDTO));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Eliminar interacción")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Interacción eliminada exitosamente"),
             @ApiResponse(responseCode = "404", description = "Interacción no encontrada"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
+    //ENDPOINT PROTEDIGO  este es distinto ya que solamante es un uso el hasRole y no el hasAnyRole
+    //@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         usuarioProductoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Registrar interacción de usuario con producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Interacción registrada exitosamente"),
@@ -119,6 +138,8 @@ public class UsuarioProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(interaccion);
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener interacciones por usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de interacciones obtenida exitosamente"),
@@ -130,6 +151,8 @@ public class UsuarioProductoController {
         return ResponseEntity.ok(usuarioProductoService.obtenerPorUsuario(usuarioId));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener interacciones por producto")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de interacciones obtenida exitosamente"),
@@ -141,6 +164,8 @@ public class UsuarioProductoController {
         return ResponseEntity.ok(usuarioProductoService.obtenerPorProducto(productoId));
     }
 
+    //ENDPOINT PROTEGIDO
+    @PreAuthorize("hasAnyRole('USER', 'COLABORADOR', 'ADMIN')")
     @Operation(summary = "Obtener interacciones por usuario y tipo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de interacciones obtenida exitosamente"),
